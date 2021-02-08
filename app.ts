@@ -6,8 +6,8 @@ import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
 import cors from 'cors';
 
-import {CommonRoutesConfig} from './common/common.routes.config';
-import {UsersRoutes}from './users/users.routes.config';
+import { CommonRoutesConfig } from './common/common.routes.config';
+import { UsersRoutes } from './users/users.routes.config';
 import debug from 'debug';
 
 
@@ -21,7 +21,7 @@ app.use(bodyparser.json());
 app.use(cors());
 
 app.use(expressWinston.logger({
-    transports:[
+    transports: [
         new winston.transports.Console()
     ],
     format: winston.format.combine(
@@ -33,7 +33,7 @@ app.use(expressWinston.logger({
 routes.push(new UsersRoutes(app));
 
 app.use(expressWinston.errorLogger({
-    transports:[
+    transports: [
         new winston.transports.Console()
     ],
     format: winston.format.combine(
@@ -42,13 +42,13 @@ app.use(expressWinston.errorLogger({
     )
 }))
 
-app.get('/',(req: express.Request, res: express.Response)=>{
+app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send("We are working")
 })
 
-server.listen(port, ()=>{
+server.listen(port, () => {
     debugLog(`Server running at htpp://localhost:${port}`);
-    routes.forEach((route: CommonRoutesConfig)=>{
-    debugLog(`Routes configured for ${route.getName()}`);
+    routes.forEach((route: CommonRoutesConfig) => {
+        debugLog(`Routes configured for ${route.getName()}`);
     })
 })
